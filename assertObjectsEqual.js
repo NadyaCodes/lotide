@@ -16,16 +16,14 @@ const eqArrays = function(arr1, arr2) {
   return false;
 };
 
+//tests to see if objects are equal
 const eqObjects = function(object1, object2) {
-  const negativeOutput = `👀 👀 👀 Assertion Failed!`;
-  const positiveOutput = `😀😀😀 Assertion Passed!`;
-
-  let output = negativeOutput;
-
   let keys1 = Object.keys(object1);
   let keys2 = Object.keys(object2);
 
   if (keys1.length === keys2.length) {
+
+    let arraysEqual = false;
 
     for (let key1 of keys1) {
       if (Array.isArray(object1[key1])) {
@@ -36,8 +34,7 @@ const eqObjects = function(object1, object2) {
             let arr2 = object2[key2];
 
             if (eqArrays(arr1, arr2) === false) {
-              output = negativeOutput;
-              return output;
+              return false;
             }
           }
         }
@@ -48,8 +45,7 @@ const eqObjects = function(object1, object2) {
       for (let key2 of keys2) {
         if (key1 === key2) {
           if ((object1[key1] === object2[key2])) {
-            output = positiveOutput;
-            return output;
+            return true;
           }
         }
       }
@@ -58,19 +54,23 @@ const eqObjects = function(object1, object2) {
 
   }
 
-  return output;
+  return false;
 };
 
-const ab = { a: "1", b: "2" };
-const ba = { b: "2", a: "1" };
-console.log(eqObjects(ab, ba));
 
-const abc = {a: "1", b: "2", c: "3" };
-console.log(eqObjects(ab, abc));
 
-const cd = { c: "1", d: ["2", 3] };
-const dc = { d: ["2", 3], c: "1" };
-console.log(eqObjects(cd, dc));
+const assertObjectsEqual = function(actual, expected) {
+  const inspect = require('util').inspect;
+  if (eqObjects(actual, expected)) {
+    return console.log(`🎉🎉🎉 Assertion Passed 🎉🎉🎉 ${inspect(actual)} === ${inspect(expected)}`);
+  }
 
-const cd2 = { c: "1", d: ["2", 3, 4] };
-console.log(eqObjects(cd, cd2));
+  return console.log(`👀 Nope - ${inspect(actual)} !== ${inspect(expected)}`);
+  
+};
+
+const object1 = { 1: "1", 2: "2", 3: "3"}
+const object2 = { 1: "1", 2: "2", 3: "3"}
+const object3 = { 1: "1", 2: "2", 3: "4"}
+assertObjectsEqual(object1, object2);
+assertObjectsEqual(object1, object3);
