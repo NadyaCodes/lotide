@@ -22,10 +22,12 @@ const eqObjects = function(object1, object2) {
 
   let output = negativeOutput;
 
+
   let keys1 = Object.keys(object1);
   let keys2 = Object.keys(object2);
 
   if (keys1.length === keys2.length) {
+    let arraysEqual =  false;
 
     for (let key1 of keys1) {
       if (Array.isArray(object1[key1])) {
@@ -35,7 +37,10 @@ const eqObjects = function(object1, object2) {
           if (Array.isArray(object2[key2])) {
             let arr2 = object2[key2];
 
-            if (eqArrays(arr1, arr2) === false) {
+            if (eqArrays(arr1, arr2)) {
+              arraysEqual = true;
+            }
+            if (arraysEqual !== true) {
               output = negativeOutput;
               return output;
             }
@@ -44,19 +49,23 @@ const eqObjects = function(object1, object2) {
       }
     }
 
+    let objectTrue = 0;
     for (let key1 of keys1) {
       for (let key2 of keys2) {
         if (key1 === key2) {
-          if ((object1[key1] === object2[key2])) {
-            output = positiveOutput;
-            return output;
+          if ((object1[key1] === object2[key2]) || arraysEqual) {
+            objectTrue++;
           }
         }
       }
-
     }
 
+    if (objectTrue === keys1.length) {
+      output = positiveOutput;
+    }
   }
+
+
 
   return output;
 };

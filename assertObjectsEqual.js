@@ -22,7 +22,6 @@ const eqObjects = function(object1, object2) {
   let keys2 = Object.keys(object2);
 
   if (keys1.length === keys2.length) {
-
     let arraysEqual = false;
 
     for (let key1 of keys1) {
@@ -33,25 +32,31 @@ const eqObjects = function(object1, object2) {
           if (Array.isArray(object2[key2])) {
             let arr2 = object2[key2];
 
-            if (eqArrays(arr1, arr2) === false) {
+            if (eqArrays(arr1, arr2)) {
+              arraysEqual = true;
+            }
+            if (arraysEqual !== true) {
               return false;
             }
           }
         }
       }
     }
-
+    
+    let objectTrue = 0;
     for (let key1 of keys1) {
       for (let key2 of keys2) {
         if (key1 === key2) {
-          if ((object1[key1] === object2[key2])) {
-            return true;
+          if ((object1[key1] === object2[key2]) || arraysEqual) {
+            objectTrue++;
           }
         }
       }
-
     }
 
+    if (objectTrue === keys1.length) {
+      return true;
+    }
   }
 
   return false;
@@ -61,7 +66,7 @@ const eqObjects = function(object1, object2) {
 
 const assertObjectsEqual = function(actual, expected) {
   const inspect = require('util').inspect;
-  if (eqObjects(actual, expected)) {
+  if (eqObjects(actual, expected) === true) {
     return console.log(`🎉🎉🎉 Assertion Passed 🎉🎉🎉 ${inspect(actual)} === ${inspect(expected)}`);
   }
 
@@ -69,8 +74,8 @@ const assertObjectsEqual = function(actual, expected) {
   
 };
 
-const object1 = { 1: "1", 2: "2", 3: "3"}
-const object2 = { 1: "1", 2: "2", 3: "3"}
-const object3 = { 1: "1", 2: "2", 3: "4"}
+const object1 = { 1: "1", 2: "2", 3: "3"};
+const object2 = { 1: "1", 2: "2", 3: "3"};
+const object3 = { 1: "1", 2: "2", 3: "4"};
 assertObjectsEqual(object1, object2);
 assertObjectsEqual(object1, object3);
