@@ -1,28 +1,47 @@
 const assertEqual = function(actual, expected) {
+  let output = `🛑🛑🛑 Assertion Failed: ${actual} !== ${expected}`;
+
   if (actual === expected) {
-    return console.log(`✅✅✅ Assertion Passed: ${actual} === ${expected}`);
+    output = `✅✅✅ Assertion Passed: ${actual} === ${expected}`;
   }
-  return console.log(`🛑🛑🛑 Assertion Failed: ${actual} !== ${expected}`);
+ 
+  console.log(output);
 };
 
 const eqArrays = function(arr1, arr2) {
-  if (arr1.length === arr2.length) {
-    let equalCounter = 0;
+  let stillTrue = true;
 
-    for (let i = 0; i < arr1.length; i++) {
-      if (arr1[i] === arr2[i]) {
-        equalCounter++;
-      }
-    }
+  if (arr1.length !== arr2.length) {
+    stillTrue = false;
+  }
 
-    if (equalCounter === arr1.length) {
-      return true;
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      stillTrue = false;
     }
   }
-  return false;
+
+  return stillTrue;
 };
 
-console.log(assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true));
-console.log(assertEqual(eqArrays([1, 2, 3], [3, 2, 1]), false));
-console.log(assertEqual(eqArrays(["1", "2", "3"], ["1", "2", "3"]), true));
-console.log(assertEqual(eqArrays(["1", "2", "3"], ["1", "2", 3]), false));
+// const eqArrays = function(arr1, arr2) {
+//   if (arr1.length === arr2.length) {
+//     let equalCounter = 0;
+
+//     for (let i = 0; i < arr1.length; i++) {
+//       if (arr1[i] === arr2[i]) {
+//         equalCounter++;
+//       }
+//     }
+
+//     if (equalCounter === arr1.length) {
+//       return true;
+//     }
+//   }
+//   return false;
+// };
+
+assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true);
+assertEqual(eqArrays([1, 2, 3], [3, 2, 1]), false);
+assertEqual(eqArrays(["1", "2", "3"], ["1", "2", "3"]), true);
+assertEqual(eqArrays(["1", "2", "3"], ["1", "2", 3]), false);
