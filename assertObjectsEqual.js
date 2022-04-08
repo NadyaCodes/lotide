@@ -18,48 +18,49 @@ const eqArrays = function(arr1, arr2) {
 
 //tests to see if objects are equal
 const eqObjects = function(object1, object2) {
-  let keys1 = Object.keys(object1);
-  let keys2 = Object.keys(object2);
+  
+  //truth counter
+  let objectTrue = 0;
 
+  const keys1 = Object.keys(object1);
+  const keys2 = Object.keys(object2);
+
+  //if keys are same length
   if (keys1.length === keys2.length) {
-    let arraysEqual = false;
 
-    for (let key1 of keys1) {
-      if (Array.isArray(object1[key1])) {
-        let arr1 = object1[key1];
-
-        for (let key2 of keys2) {
-          if (Array.isArray(object2[key2])) {
-            let arr2 = object2[key2];
-
-            if (eqArrays(arr1, arr2)) {
-              arraysEqual = true;
-            }
-            if (arraysEqual !== true) {
-              return false;
-            }
-          }
-        }
-      }
-    }
-    
-    let objectTrue = 0;
+    //loop through both sets of keys
     for (let key1 of keys1) {
       for (let key2 of keys2) {
-        if (key1 === key2) {
-          if ((object1[key1] === object2[key2]) || arraysEqual) {
-            objectTrue++;
+
+        //if values are arrays, proceed
+        if ((Array.isArray(object1[key1])) && (Array.isArray(object2[key2]))) {
+          let arr1 = object1[key1];
+          let arr2 = object2[key2];
+
+          //if values match, the truth counter goes up
+          if (eqArrays(arr1, arr2) === false) {
+            return false;
           }
+
+          objectTrue++;
+
+        } else {
+
+          //if not an array, and if values match, the counter goes up
+          if (key1 === key2) {
+            if (object1[key1] === object2[key2]) {
+              objectTrue++;
+            }
+          }
+        }
+
+        //at the end, if the counter is the same value as the number of keys, it's good to go!
+        if (objectTrue === keys1.length) {
+          return true;
         }
       }
     }
-
-    if (objectTrue === keys1.length) {
-      return true;
-    }
-  }
-
-  return false;
+  } return false;
 };
 
 
