@@ -1,4 +1,4 @@
-let head = (array) => {
+const head = (array) => {
   return array[0];
 };
 
