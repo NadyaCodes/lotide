@@ -1,22 +1,6 @@
-//tests to see if arrays are equal
-const eqArrays = function(arr1, arr2) {
-  if (arr1.length === arr2.length) {
-    let equalCounter = 0;
+const eqArrays = require('./eqArrays');
 
-    for (let i = 0; i < arr1.length; i++) {
-      if (arr1[i] === arr2[i]) {
-        equalCounter++;
-      }
-    }
-
-    if (equalCounter === arr1.length) {
-      return true;
-    }
-  }
-  return false;
-};
-
-const eqObjects = function(object1, object2) {
+const eqObjects = (object1, object2) => {
   //truth counter
   let objectTrue = 0;
 
@@ -37,7 +21,7 @@ const eqObjects = function(object1, object2) {
 
           //if values match, the truth counter goes up
           if (eqArrays(arr1, arr2) === false) {
-            return `👀 👀 👀 Assertion Failed!`;
+            return false;
           }
 
           objectTrue++;
@@ -54,23 +38,25 @@ const eqObjects = function(object1, object2) {
 
         //at the end, if the counter is the same value as the number of keys, it's good to go!
         if (objectTrue === keys1.length) {
-          return `😀😀😀 Assertion Passed!`;
+          return true;
         }
       }
     }
-  } return `👀 👀 👀 Assertion Failed!`;
+  } return false;
 };
 
-const ab = { a: "1", b: "2" };
-const ba = { b: "2", a: "1" };
-console.log(eqObjects(ab, ba));
+module.exports = eqObjects;
 
-const abc = {a: "1", b: "2", c: "3" };
-console.log(eqObjects(ab, abc));
+// const ab = { a: "1", b: "2" };
+// const ba = { b: "2", a: "1" };
+// console.log(eqObjects(ab, ba));
 
-const cd = { c: "1", d: ["2", 3] };
-const dc = { d: ["2", 3], c: "1" };
-console.log(eqObjects(cd, dc));
+// const abc = {a: "1", b: "2", c: "3" };
+// console.log(eqObjects(ab, abc));
 
-const cd2 = { c: "1", d: ["2", 3, 4] };
-console.log(eqObjects(cd, cd2));
+// const cd = { c: "1", d: ["2", 3] };
+// const dc = { d: ["2", 3], c: "1" };
+// console.log(eqObjects(cd, dc));
+
+// const cd2 = { c: "1", d: ["2", 3, 4] };
+// console.log(eqObjects(cd, cd2));
