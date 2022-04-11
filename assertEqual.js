@@ -1,4 +1,4 @@
-assertEqual = (actual, expected) => {
+let assertEqual = (actual, expected) => {
   if (actual === expected) {
     return console.log(`✅✅✅ Assertion Passed: ${actual} === ${expected}`);
   }
