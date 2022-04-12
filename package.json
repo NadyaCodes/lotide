@@ -1,7 +1,7 @@
 {
-  "name": "lotide",
+  "name": "@nadyacorscadden/lotide",
   "version": "1.0.0",
-  "description": "",
+  "description": "a collection of functions similar to lodash",
   "main": "assertArraysEqual.js",
   "directories": {
     "test": "test"
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/NadyaCodes/lotide.git"
   },
-  "author": "",
+  "author": "Nadya Corscadden",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/NadyaCodes/lotide/issues"
