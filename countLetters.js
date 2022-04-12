@@ -19,4 +19,3 @@ module.exports = countLetters;
 
 // console.log(countLetters("LHL"));
 // console.log(countLetters("this is a very big lighthouse"));
-// //assertEqual was copied in, but it doesn't help...it can't compare objects

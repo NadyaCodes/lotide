@@ -9,7 +9,7 @@ const findKey = (object, callback) => {
 
 module.exports = findKey;
 
-//Parameters1:
+// //Parameters1:
 
 // const assertEqual = require('./assertEqual');
 // findKey({
